@@ -57,16 +57,16 @@ class Graph:
         return iter(self.vertList.values())
 
 g = Graph()
-for i in range(4):
+for i in range(50):
     g.addVertex(i+1)
 g.vertList
 
-for i in range(4):
-    fileName =(i+1).__str__() + '.html'
+for i in range(50):
+    fileName = 'Links/' + (i+1).__str__() + '.html'
     f = open(fileName, 'r')
     fileContent = f.read()
 
-    pattern = r"<a href=\"(.*).html\""
+    pattern = r"<a href = \"(.*).html\""
 
     regex = re.compile(pattern, re.IGNORECASE)
     for match in regex.finditer(fileContent):
@@ -77,7 +77,7 @@ for i in range(4):
 #   for w in v.getConnections():
 #       print("( %s , %s )" % (v.getId(), w.getId()))
 
-adjMat = [[0 for i in range(4)] for j in range(4)]
+adjMat = [[0 for i in range(50)] for j in range(50)]
 
 for v in g:
    for w in v.getConnections():
@@ -85,9 +85,9 @@ for v in g:
        colNo = int(w.getId())
        adjMat[rowNo-1][colNo-1] = 1
 
-sumRow = [0 for i in range(4)]
-sumCol = [0 for i in range(4)]
-ratio = [0 for i in range(4)]
+sumRow = [0 for i in range(50)]
+sumCol = [0 for i in range(50)]
+ratio = [0 for i in range(50)]
 for v in g:
    for w in v.getConnections():
        rowNo = int(v.getId())
@@ -98,16 +98,16 @@ for v in g:
 for r in adjMat:
     print r
 
-for i in range(4):
+for i in range(50):
     ratio[i] = (float(sumRow[i]) / float(sumCol[i])).__pow__(-1)
 
 print "InDegree :", sumCol
 print "OutDegree :", sumRow
 print "Ratio :", ratio
 
-flag = ['empty' for i in range(4)]
+flag = ['empty' for i in range(50)]
 
-for i in range(4):
+for i in range(50):
     if ratio[i] < 0.95 :
         flag[i] = 'Not Spam'
     elif ratio[i] > 1.20:
