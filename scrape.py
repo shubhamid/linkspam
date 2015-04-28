@@ -2,6 +2,7 @@ __author__ = 'shubhamid'
 #!/usr/bin/python
 
 import re
+import operator
 
 class Vertex:
     def __init__(self,key):
@@ -11,17 +12,11 @@ class Vertex:
     def addNeighbor(self,nbr,weight=0):
         self.connectedTo[nbr] = weight
 
-    def __str__(self):
-        return str(self.id) + ' connectedTo: ' + str([x.id for x in self.connectedTo])
-
     def getConnections(self):
         return self.connectedTo.keys()
 
     def getId(self):
         return self.id
-
-    def getWeight(self,nbr):
-        return self.connectedTo[nbr]
 
 class Graph:
     def __init__(self):
@@ -39,9 +34,6 @@ class Graph:
             return self.vertList[n]
         else:
             return None
-
-    def __contains__(self,n):
-        return n in self.vertList
 
     def addEdge(self,f,t,cost=0):
         if f not in self.vertList:
@@ -101,6 +93,7 @@ for r in adjMat:
 for i in range(50):
     ratio[i] = (float(sumRow[i]) / float(sumCol[i])).__pow__(-1)
 
+print "\n"
 print "InDegree :", sumCol
 print "OutDegree :", sumRow
 print "Ratio :", ratio
@@ -126,6 +119,21 @@ for k in range(50):
             if adjMat[j][i] == 1:
                 sigma += (pr[j] / sumRow[j])
         pr[i] = (1-d) + d*sigma
+print "\n"
+#print pr
 
-print pr
-
+print "Index : PageRank"
+sortList = {}
+for i in range(50):
+    sortList[i+1] = pr[i]
+print sortList
+#sorted(sortList.keys())
+sorted_x = sorted(sortList.items(), key=operator.itemgetter(1))
+print "\n"
+print "Sorted by PageRank"
+k=0
+for i in sorted_x:
+    k = k + 1
+    print "Rank", k , ":", i
+#sortList.sort()
+#print sortList
