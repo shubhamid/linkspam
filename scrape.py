@@ -115,3 +115,17 @@ for i in range(50):
     else:
         flag[i] = 'BorderLine'
 print flag
+
+pr = [1.0 for i in range(50)]
+d = 0.85
+
+for k in range(50):
+    for i in range(50):
+        sigma = 0
+        for j in range(50):
+            if adjMat[j][i] == 1:
+                sigma += (pr[j] / sumRow[j])
+        pr[i] = (1-d) + d*sigma
+
+print pr
+
